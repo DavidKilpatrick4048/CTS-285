@@ -23,8 +23,6 @@ The DataMan modernization project works to bring the original 1977 DataMan math 
 
 ## Functional Requirements
 
-Write at least four functional requirements. Each requirement should describe a capability or behavior the system must provide.
-
 ### FR-01
 **Requirement:** The system must preserve a user's in-progress practice state when a session ends unexpectedly, without requiring the user to sign out, and must allow the user to resume that state when signing back in.  
 **Source/Rationale:** Directly supported by E-04, stake holders want a saved state to persist across leaving and returning
@@ -60,8 +58,6 @@ Write at least four functional requirements. Each requirement should describe a 
 **Source/Rationale:** The original device's feedback was noted in the manual, and must be present in the modernized version.
 
 ## Open Questions / Assumptions
-
-Do not turn an unsupported idea into a confirmed requirement. Record unresolved items here until evidence supports a decision.
 
 - **Q-01:** Exact devices and access conditions (like browser support, offline use) are not confirmed yet
 - **Q-02:** Will individual user accounts be able to identify unique users, and preserve progress is assumed
