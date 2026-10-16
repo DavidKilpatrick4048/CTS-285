@@ -10,11 +10,11 @@ This backlog uses these files from my repository:
 
 ## Priority Order
 
-1. [US-01 Immediate answer feedback]
-2. [US-02 Retry an incorrect answer]
-3. [US-03 View end of set results]
-4. [US-04 Use core practice across student devices]
-5. [US-05 Resume interrupted practice]
+1. US-01 Immediate answer feedback
+2. US-02 Retry an incorrect answer
+3. US-03 View end of set results
+4. US-04 Use core practice across student devices
+5. US-05 Resume interrupted practice
 
 ## Stories
 
