@@ -1,24 +1,42 @@
-from flask import Flask, render_template, request
+from secrets import token_hex
+
+from flask import Flask, redirect, render_template, request, session, url_for
 
 from business_logic import check_answer
-from data_store import load_state, save_state
+from dataman.logic import AnswerChecker
+from data_store import practice_store
 
 app = Flask(__name__)
+app.secret_key = token_hex(32)
 
 
-@app.route("/", methods=["GET"])
+def current_checker():
+    if "practice_id" not in session:
+        session["practice_id"] = token_hex(16)
+    return AnswerChecker(practice_store, session["practice_id"], "P1")
+
+
+@app.get("/")
 def index():
-    state = load_state()
-    return render_template("index.html", state=state, outcome=None)
+    checker = current_checker()
+    return render_template(
+        "index.html",
+        problem=checker.problem_text(),
+        next_try=checker.next_try_number(),
+        message=session.get("message"),
+    )
 
 
-@app.route("/answer", methods=["POST"])
+@app.post("/answer")
 def answer():
-    submitted = request.form.get("answer", "").strip()
-    state = load_state()
-    outcome = check_answer(state, submitted)
-    save_state(outcome["state"])
-    return render_template("index.html", state=outcome["state"], outcome=outcome)
+    checker = current_checker()
+    if checker.next_try_number() is not None:
+        submitted = request.form.get("answer", type=int)
+        if submitted is None:
+            session["message"] = "Enter a whole number."
+        else:
+            session["message"] = check_answer(checker, submitted)
+    return redirect(url_for("index"), code=303)
 
 
 if __name__ == "__main__":

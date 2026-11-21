@@ -7,23 +7,26 @@
 </head>
 <body>
   <main>
-    <h1>DataMan Answer Checker</h1>
-    <p><strong>Problem:</strong> {{ state.problem }}</p>
-    <p><strong>Try:</strong> {{ state.try_number + 1 }}</p>
+  <h1>DataMan Answer Checker</h1>
+  <p><strong>Problem:</strong> {{ problem }}</p>
 
-    {% if outcome %}
-      <p><strong>Result:</strong> {{ outcome.message }}</p>
-    {% endif %}
+  {% if next_try is not none %}
+    <p><strong>Try:</strong> {{ next_try }}</p>
+  {% endif %}
 
-    {% if state.status not in ['correct', 'revealed'] %}
-      <form method="post" action="/answer">
-        <label for="answer">Your answer</label>
-        <input id="answer" name="answer" inputmode="numeric" required>
-        <button type="submit">Check answer</button>
-      </form>
-    {% else %}
-      <p>This controlled round is complete. Restart the app to reset the starter state.</p>
-    {% endif %}
-  </main>
+  {% if message %}
+    <p><strong>Result:</strong> {{ message }}</p>
+  {% endif %}
+
+  {% if next_try is not none %}
+    <form method="post" action="/answer">
+      <label for="answer">Your answer</label>
+      <input id="answer" name="answer" inputmode="numeric" required>
+      <button type="submit">Check answer</button>
+    </form>
+  {% else %}
+    <p>This round is complete.</p>
+  {% endif %}
+</main>
 </body>
 </html>
